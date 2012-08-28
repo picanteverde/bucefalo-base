@@ -1,0 +1,14 @@
+{
+  "name": "bucefalo-base",
+  "title": "Bucefalo Base",
+  "description": "Bucefalo Base for Class Definition in JavaScript.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/picanteverde/bucefalo-base",
+  "author": {
+    "name": "Alejandro Hernandez (aka picanteverde)"
+  },
+  "dependencies": {
+      "mocha": ">= 1.1.0",
+      "chai": ">= 1.0.4"
+  }
+}

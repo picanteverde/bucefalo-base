@@ -1,3 +1,7 @@
+/*! Bucefalo Base - v0.1.0 - 2012-08-28
+* https://github.com/picanteverde/bucefalo-base
+*/
+
 var bucefalo = {};
 (function(){
 	var nameSpace = function(context, namespace, object){
