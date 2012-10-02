@@ -80,7 +80,9 @@
 		}
 		return target;
 	};
-
+}());
+(function(){
+	var b = bucefalo;
 	var privAccess = function(priv, method){
 		return function(){
 			var res;
