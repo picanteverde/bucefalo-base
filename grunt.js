@@ -16,20 +16,12 @@ module.exports = function(grunt) {
               'src/base/d.js'
         ],
         dest: 'dist/<%= pkg.name %>.js'
-      },
-      module: {
-        src: ['<config:concat.dist.dest>', 'src/module.js'],
-        dest: 'dist/<%= pkg.name %>.module.js'
       }
     },
     min: {
       dist: {
         src: ['<config:concat.dist.dest>'],
         dest: 'dist/<%= pkg.name %>.min.js'
-      },
-      module: {
-        src: ['<config:concat.module.dest>'],
-        dest: 'dist/<%= pkg.name %>.module.min.js'
       }
     },
     lint: {

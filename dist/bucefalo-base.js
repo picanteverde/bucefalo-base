@@ -11,6 +11,10 @@
 	global.bucefalo = bucefalo;
 	bucefalo.global = global;
 
+	if (typeof module.exports !== 'undefined') {
+		module.exports = bucefalo;
+	}
+
 	b.noConflict = function() {
 		global.bucefalo = old;
 		return this;

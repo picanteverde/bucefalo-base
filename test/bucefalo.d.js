@@ -1,5 +1,5 @@
 var expect = require("chai").expect,
-	bucefalo = require("../dist/bucefalo-base.module.js");
+	bucefalo = require("../dist/bucefalo-base.js");
 
 describe("Bucefalo.d", function(){
 	var ctx;
