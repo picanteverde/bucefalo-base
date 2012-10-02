@@ -2,14 +2,21 @@ var expect = require("chai").expect,
 	bucefalo = require("../dist/bucefalo-base.module.js");
 
 describe("Bucefalo.d", function(){
+	var ctx;
+
+	beforeEach(function(){
+		ctx = {};
+	});
+
 	it("should define a class",function(){
 		var o;
 
 		bucefalo.d({
 			name:"bObject",
+			context: ctx
 		});
 
-		o = bObject();
+		o = ctx.bObject();
 		expect(o.cls.name).to.equal("bObject");
 	});
 
@@ -18,6 +25,7 @@ describe("Bucefalo.d", function(){
 
 		bucefalo.d({
 			name:"bObject",
+			context: ctx,
 			instance: {
 				arr:[],
 				add: function(value){
@@ -32,9 +40,9 @@ describe("Bucefalo.d", function(){
 			}
 		});
 
-		o = bObject();
+		o = ctx.bObject();
 		o.add("Value");
-		o1 = bObject();
+		o1 = ctx.bObject();
 		o1.add("Value1");
 
 		expect(o.sayHello()).to.equal("Hello");
@@ -47,6 +55,7 @@ describe("Bucefalo.d", function(){
 
 		bucefalo.d({
 			name:"bObject",
+			context: ctx,
 			priv:{
 				arr:[]
 			},
@@ -63,9 +72,9 @@ describe("Bucefalo.d", function(){
 			}
 		});
 
-		o = bObject();
+		o = ctx.bObject();
 		o.add("Value");
-		o1 = bObject();
+		o1 = ctx.bObject();
 		o1.add("Value1");
 
 		expect(o.sayHello()).to.equal("Hello");
@@ -79,6 +88,7 @@ describe("Bucefalo.d", function(){
 
 		bucefalo.d({
 			name:"bObject",
+			context: ctx,
 			constructor: function(name){
 				this.name = name;
 			},
@@ -89,7 +99,7 @@ describe("Bucefalo.d", function(){
 			}
 		});
 
-		o = bObject("Alejandro");
+		o = ctx.bObject("Alejandro");
 		expect(o.sayName()).to.equal("My Name is Alejandro");
 		expect(o.cls.name).to.equal("bObject");
 	});
@@ -99,6 +109,7 @@ describe("Bucefalo.d", function(){
 
 		bucefalo.d({
 			name:"bObject",
+			context: ctx,
 			constructor: function(name){
 				this.name = name;
 			},
@@ -112,7 +123,7 @@ describe("Bucefalo.d", function(){
 			}
 		});
 
-		o = bObject("Alejandro");
+		o = ctx.bObject("Alejandro");
 		expect(o.sayName()).to.equal("My Name is Alejandro");
 		expect(o.cls.name).to.equal("bObject");
 		expect(o.destructor()).to.equal("destructor");
@@ -122,6 +133,7 @@ describe("Bucefalo.d", function(){
 		var o1, o2;
 		bucefalo.d({
 			name: "bObject",
+			context: ctx,
 			constructor: function(name){
 				this.name = name;
 				this.cls.names.push(name);
@@ -138,9 +150,9 @@ describe("Bucefalo.d", function(){
 				}
 			}
 		});
-		o1 = bObject("Alejandro");
-		o2 = bObject("Raul");
-		expect(bObject.sayNames()).to.equal("Alejandro,Raul");
+		o1 = ctx.bObject("Alejandro");
+		o2 = ctx.bObject("Raul");
+		expect(ctx.bObject.sayNames()).to.equal("Alejandro,Raul");
 	});
 
 	it("should define a class with inheritance",function(){
@@ -148,6 +160,7 @@ describe("Bucefalo.d", function(){
 
 		bucefalo.d({
 			name: "bObject",
+			context: ctx,
 			instance: {
 				sayHello: function(){
 					return "Hello";
@@ -157,15 +170,16 @@ describe("Bucefalo.d", function(){
 
 		bucefalo.d({
 			name: "bSubObject",
+			context: ctx,
 			instance:{
 				sayGoodBye: function(){
 					return "Good Bye";
 				}
 			},
-			inherits: bObject
+			inherits: ctx.bObject
 		});
 
-		o = bSubObject();
+		o = ctx.bSubObject();
 		expect(o.sayHello()).to.equal("Hello");
 		expect(o.sayGoodBye()).to.equal("Good Bye");
 	});
