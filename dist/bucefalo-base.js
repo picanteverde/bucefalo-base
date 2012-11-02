@@ -1,4 +1,4 @@
-/*! Bucefalo Base - v0.1.0 - 2012-10-03
+/*! Bucefalo Base - v0.1.0 - 2012-11-02
 * https://github.com/picanteverde/bucefalo-base
 */
 
@@ -85,8 +85,7 @@
 		return target;
 	};
 }());
-(function(){
-	var b = bucefalo;
+(function(b){
 	b.latigo = function(name, instanceMembers, cons, classMembers, context){
 		var lati = function(){
 			var o = {};
@@ -101,11 +100,12 @@
 		}
 		b.extend(lati, classMembers);
 		lati.prototype = instanceMembers;
-		lati.prototype.className = name;
-		lati.prototype.cls = lati;
+		lati.prototype.typeName = name;
+		lati.prototype.typeDef = lati;
+		lati.prototype.typeCons = cons;
 		return lati;
 	};
-}());
+}(bucefalo));
 (function(){
 	var b = bucefalo;
 	var privAccess = function(priv, method){

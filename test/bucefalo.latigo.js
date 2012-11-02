@@ -8,17 +8,17 @@ describe("Bucefalo.latigo", function(){
 		ctx = {};
 	});
 
-	it("should define a class",function(){
+	it("should define a type",function(){
 		var o, cls;
 		cls = b.latigo("cls", {
 			foo: function(){}
 		});
 		o = cls();
 
-		expect(o.prototype.className).to.equal("cls");
+		expect(o.prototype.typeName).to.equal("cls");
 	});
 
-	it("should define a class with instance members",function(){
+	it("should define a type with instance members",function(){
 		var cls, o, o1;
 		cls = b.latigo("cls",{
 			arr:[],
@@ -44,7 +44,7 @@ describe("Bucefalo.latigo", function(){
 	});
 
 
-	it("should define a class with constructor",function(){
+	it("should define a type with constructor",function(){
 		var cls, o;
 
 		cls = b.latigo("cls",{
@@ -58,10 +58,10 @@ describe("Bucefalo.latigo", function(){
 
 		o = cls("Alejandro");
 		expect(o.sayName()).to.equal("My Name is Alejandro");
-		expect(o.prototype.className).to.equal("cls");
+		expect(o.prototype.typeName).to.equal("cls");
 	});
 
-	it("should define a class with class methods", function(){
+	it("should define a type with class members", function(){
 		var cls, o1, o2;
 		cls = b.latigo("cls",
 			{
@@ -70,7 +70,7 @@ describe("Bucefalo.latigo", function(){
 				}
 			},function(name){
 				this.name = name;
-				this.prototype.cls.names.push(name);
+				this.prototype.typeDef.names.push(name);
 			},
 			{
 				names:[],
@@ -84,7 +84,7 @@ describe("Bucefalo.latigo", function(){
 		expect(cls.sayNames()).to.equal("Alejandro,Raul");
 	});
 
-	it("should define a class with inheritance",function(){
+	it("should define a type with inheritance",function(){
 		var o;
 
 		bucefalo.d({
