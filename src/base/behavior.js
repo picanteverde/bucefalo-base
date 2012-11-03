@@ -1,7 +1,7 @@
 (function(b){
 	b.behavior = function(name, instanceMembers){
 		instanceMembers.behaviorName = name;
-		return behavior;
+		return instanceMembers;
 	};
 	b.behavior.augment = function (obj, behavior){
 		if(!obj.behaviors){

@@ -1,4 +1,4 @@
-/*! Bucefalo Base - v0.1.0 - 2012-11-02
+/*! Bucefalo Base - v0.1.0 - 2012-11-03
 * https://github.com/picanteverde/bucefalo-base
 */
 
@@ -174,3 +174,17 @@
 		return powerConstructor;
 	};
 }());
+(function(b){
+	b.behavior = function(name, instanceMembers){
+		instanceMembers.behaviorName = name;
+		return instanceMembers;
+	};
+	b.behavior.augment = function (obj, behavior){
+		if(!obj.behaviors){
+			obj.behaviors = {};
+		}
+		obj.behaviors[behavior.behaviorName] = behavior;
+		b.clone(obj, behavior);
+		return obj;
+	};
+}(bucefalo));

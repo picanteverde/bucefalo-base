@@ -14,7 +14,8 @@ module.exports = function(grunt) {
         src: ['<banner:meta.banner>', 
               'src/base/base.js',
               'src/base/latigo.js',
-              'src/base/d.js'
+              'src/base/d.js',
+              'src/base/behavior.js'
         ],
         dest: 'dist/<%= pkg.name %>.js'
       }
