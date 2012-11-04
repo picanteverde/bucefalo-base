@@ -10,9 +10,11 @@ describe("Bucefalo.latigo", function(){
 
 	it("should define a type",function(){
 		var o, cls;
-		cls = b.latigo("cls", {
-			foo: function(){}
-		});
+		cls = b.latigo("cls", 
+			null,
+			{
+				foo: function(){}
+			});
 		o = cls();
 
 		expect(o.prototype.typeName).to.equal("cls");
@@ -20,7 +22,9 @@ describe("Bucefalo.latigo", function(){
 
 	it("should define a type with instance members",function(){
 		var cls, o, o1;
-		cls = b.latigo("cls",{
+		cls = b.latigo("cls",
+			null,
+			{
 			arr:[],
 			add: function(value){
 				this.arr.push(value);
@@ -47,7 +51,9 @@ describe("Bucefalo.latigo", function(){
 	it("should define a type with constructor",function(){
 		var cls, o;
 
-		cls = b.latigo("cls",{
+		cls = b.latigo("cls",
+			null,
+			{
 			sayName: function(){
 				return "My Name is " + this.name;
 			}
@@ -64,52 +70,76 @@ describe("Bucefalo.latigo", function(){
 	it("should define a type with class members", function(){
 		var cls, o1, o2;
 		cls = b.latigo("cls",
-			{
-				sayName: function(){
-					return "My Name is" + this.name;
+				null,
+				{
+					sayName: function(){
+						return "My Name is" + this.name;
+					}
+				},function(name){
+					this.name = name;
+					this.prototype.typeDef.names.push(name);
+				},
+				{
+					names:[],
+					sayNames: function(){
+						return this.names.join(",");
+					}
 				}
-			},function(name){
-				this.name = name;
-				this.prototype.typeDef.names.push(name);
-			},
-			{
-				names:[],
-				sayNames: function(){
-					return this.names.join(",");
-				}
-			}
-		);
+			);
 		o1 = cls("Alejandro");
 		o2 = cls("Raul");
 		expect(cls.sayNames()).to.equal("Alejandro,Raul");
 	});
 
 	it("should define a type with inheritance",function(){
-		var o;
-
-		bucefalo.d({
-			name: "bObject",
-			context: ctx,
-			instance: {
+		var o, 
+		parent = bucefalo.latigo(
+			"parent",
+			null,
+			{
 				sayHello: function(){
 					return "Hello";
 				}
 			}
-		});
-
-		bucefalo.d({
-			name: "bSubObject",
-			context: ctx,
-			instance:{
+		),
+		inherits = bucefalo.latigo(
+			"simpleclass",
+			parent,
+			{
 				sayGoodBye: function(){
 					return "Good Bye";
 				}
-			},
-			inherits: ctx.bObject
-		});
-
-		o = ctx.bSubObject();
-		expect(o.sayHello()).to.equal("Hello");
-		expect(o.sayGoodBye()).to.equal("Good Bye");
+			}
+		);
 	});
+
+	it("should define a type with inheritance overwritting a method",function(){
+		var o, 
+		parent = bucefalo.latigo(
+			"parent",
+			null,
+			{
+				sayHello: function(){
+					return "Hello";
+				},
+				sayGoodBye: function(){
+					return "Good Bye";
+				}
+			}
+		),
+		inherits = bucefalo.latigo(
+			"simpleclass",
+			parent,
+			{
+				sayGoodBye: function(){
+					return "Good Bye!!!!";
+				}
+			}
+		);
+
+		o = inherits();
+		expect(o.sayHello()).to.equal("Hello");
+		expect(o.sayGoodBye()).to.equal("Good Bye!!!!");
+	});
+	
 });
